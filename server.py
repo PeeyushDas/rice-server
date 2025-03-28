@@ -8,8 +8,17 @@ from skimage.feature import local_binary_pattern
 from tensorflow.keras.models import load_model
 from io import BytesIO
 from PIL import Image
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Change this to specific origins if needed
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all HTTP methods
+    allow_headers=["*"],  # Allows all headers
+)
 
 # Load models
 feature_extractor = load_model("resnet_feature_extractor.h5")
